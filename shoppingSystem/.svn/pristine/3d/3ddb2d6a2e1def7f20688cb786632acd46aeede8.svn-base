@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yg.dao.ShoppingCardDAO">
+	
+	<insert id="addCard" parameterType="com.yg.model.ShoppingCard">
+		insert into shoppingCard(name, norms, tip, price, amount, sum, userID,cardID) 
+		values(#{name,jdbcType=VARCHAR}, #{norms,jdbcType=VARCHAR}, #{tip,jdbcType=VARCHAR}, 
+		#{price, jdbcType=NUMERIC}, #{amount,jdbcType=INTEGER}, #{sum,jdbcType=NUMERIC}, 
+		#{userID,jdbcType=INTEGER}, #{cardID,jdbcType=INTEGER})
+	</insert>
+	
+	<select id="findSum" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+		select count(*) from shoppingCard where userID=#{userID,jdbcType=INTEGER}
+	</select>
+	
+	<select id="findAll" parameterType="java.lang.Integer" resultType="com.yg.model.ShoppingCard">
+		select * from shoppingCard where userID=#{userID,jdbcType=INTEGER}
+	</select>
+	
+	<select id="maxCardID" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+		select cardID from shoppingCard where userID=#{id,jdbcType=INTEGER} order by cardID desc limit 1
+	</select>
+	
+	<delete id="delCard" parameterType="java.lang.Integer">
+		delete from shoppingCard where userID=#{userID,jdbcType=INTEGER} and cardID=#{cardID,jdbcType=INTEGER}
+	</delete>
+	
+	<select id="findData" parameterType="java.lang.Integer" resultType="com.yg.model.ShoppingCard">
+		select * from shoppingCard where userID=#{userID,jdbcType=INTEGER} and cardID=#{cardID,jdbcType=INTEGER}
+	</select>
+	
+</mapper>

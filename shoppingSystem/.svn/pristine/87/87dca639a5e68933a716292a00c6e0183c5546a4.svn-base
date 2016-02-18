@@ -1,0 +1,9 @@
+package com.yg.service;
+
+import java.util.List;
+
+import com.yg.model.User;
+
+public interface UserService {
+	public List<User> findAll();
+}

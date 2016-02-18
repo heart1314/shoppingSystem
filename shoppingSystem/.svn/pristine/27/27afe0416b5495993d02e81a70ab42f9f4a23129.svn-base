@@ -1,0 +1,81 @@
+package com.yg.controller;
+
+import java.util.Date;
+import java.util.List;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.yg.model.User;
+import com.yg.service.UserService;
+
+@Controller
+@RequestMapping("/user")
+public class UserController {
+	@Autowired
+	private UserService userService;
+	
+	protected final Logger logger = LoggerFactory.getLogger(getClass());
+	
+	@ResponseBody
+	@RequestMapping("/findAll")
+	public List<User> findAll(@RequestParam(value = "type") String type) {
+		logger.trace("根据用户类型查询用户列表");
+		if("0".equals(type)){
+			return userService.findAll();	
+		}else if("1".equals(type)){
+			String role = "manager";
+			return userService.findUserByRole(role);
+		}else{
+			String role = "typical-user";
+			return userService.findUserByRole(role);
+		}
+	}
+	
+	@ResponseBody
+	@RequestMapping("/findUserByRole")
+	public List<User> findUserByRole(){
+		String role = "manager";
+		return userService.findUserByRole(role);
+	}
+	
+	@ResponseBody
+	@RequestMapping("/findUserById")
+	public User findUserById(){
+		Integer id = 1;
+		return userService.findUserById(id);
+		
+	}
+	
+	@ResponseBody
+	@RequestMapping("/updateUser")
+	public int updateUser(){
+		String role = "typical-user";
+		List<User> lists = userService.findUserByRole(role);
+		User user = lists.get(0);
+		user.setMail("1234@qq.com");
+		return userService.updateUser(user);
+	}
+	
+	@ResponseBody
+	@RequestMapping("/insertUser")
+	public int insertUser(){
+		Date date = new Date();
+		User user = userService.findUserById(1);
+		user.setUsername("nunu");
+		user.setBirthday(date);
+		return userService.insertUser(user);
+	}
+	
+	@ResponseBody
+	@RequestMapping("/deletetUser")
+	public int deleteUser(){
+		Integer id = 3;
+		return userService.deleteUser(id);
+	}
+}

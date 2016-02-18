@@ -1,0 +1,13 @@
+package com.yg.service;
+
+import java.util.List;
+
+import com.yg.model.Commodity;
+
+public interface CommodityService {
+	public List<Commodity> findAll();
+
+	public int findSum();
+	
+	public List<Commodity> paginationSearch(Integer m, Integer n);
+}

@@ -1,0 +1,26 @@
+package com.yg.dao;
+
+import java.util.List;
+
+import org.apache.ibatis.annotations.Param;
+
+import com.yg.model.Address;
+
+public interface AddressDAO {
+	
+	public List<Address> findAllByUserID(Integer id);
+	
+	public Address findAddress(@Param(value="userID")Integer userID, @Param(value="addressID")Integer addressID);
+	
+	public Address findTolerantAddress(@Param(value="userID")Integer userID,@Param(value="tolerant")String tolerant);
+	
+	public int updateAddress(Address add);
+	
+	public int deleteAddress(@Param(value="userID")Integer userID, @Param(value="addressID")Integer addressID);
+	
+	public int insertAddress(Address add);
+	
+	public int sumAddress(Integer id);
+	
+	public int maxAddressID(Integer id);
+}

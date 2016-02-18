@@ -1,0 +1,79 @@
+package com.yg.controller;
+
+import java.util.List;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.yg.model.ShoppingCard;
+import com.yg.service.ShoppingCardService;
+
+@Controller
+@RequestMapping("/shoppingCard")
+public class ShoppingCardController {
+	
+	protected final Logger logger = LoggerFactory.getLogger(getClass());
+	
+	@Autowired
+	private ShoppingCardService shoppingCardService;
+	
+	@RequestMapping("/addCard")
+	@ResponseBody
+	public boolean addCard(@RequestParam(value = "name") String name,@RequestParam(value = "norms") String norms,
+			@RequestParam(value = "tip") String tip,@RequestParam(value = "amount") int amount,
+			@RequestParam(value = "price") double price,@RequestParam(value = "userID") int userID,
+			@RequestParam(value = "cardID") int cardID){
+		ShoppingCard card = new ShoppingCard();
+		card.setUserID(userID);
+		card.setAmount(amount);
+		card.setName(name);
+		card.setNorms(norms);
+		card.setPrice(price);
+		card.setTip(tip);
+		card.setCardID(cardID);
+		double sum = price * amount;
+		card.setSum(sum);
+		logger.info("#######将商品添加到购物车");
+		return shoppingCardService.addCard(card) > 0;
+	}
+	
+	@RequestMapping("/findSum")
+	@ResponseBody
+	public int findSum(int userID){
+		logger.info("#######获取shoppingCard表中数据总数");
+		return shoppingCardService.findSum(userID);
+	}
+	
+	@RequestMapping("/findAll")
+	@ResponseBody
+	public List<ShoppingCard> findAll(int userID){
+		logger.info("#######获取shoppingCard表中对应数据");
+		return shoppingCardService.findAll(userID);
+	}
+	
+	@RequestMapping("/maxCardID")
+	@ResponseBody
+	public int maxCardID(int userID){
+		logger.info("#######获取当前用户购物车中cardID最大值");
+		return shoppingCardService.maxCardID(userID);
+	}
+	
+	@RequestMapping("/delCard")
+	@ResponseBody
+	public boolean delCard(@RequestParam(value = "userID") int userID,@RequestParam(value = "cardID") int cardID){
+		logger.info("#######删除购物车记录");
+		return shoppingCardService.delCard(userID, cardID) > 0 ;
+	}
+	
+	@RequestMapping("/delCard")
+	@ResponseBody
+	public boolean delete(@RequestParam(value = "userID") int userID,@RequestParam(value = "cardID") String cardID){
+		logger.info("#######批量删除");
+		return false;
+	}
+}

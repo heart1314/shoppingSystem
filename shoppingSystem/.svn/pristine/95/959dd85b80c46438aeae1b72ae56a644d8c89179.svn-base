@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yg.dao.OrderDAO">
+
+	<insert id="addOrder" parameterType="com.yg.model.Order">
+		insert into orderList(userID, orderID, addressID, cards, date ,sum ,state)
+		values(#{userID,jdbcType=INTEGER}, #{orderID,jdbcType=INTEGER}, #{addressID,jdbcType=INTEGER}, 
+		#{cards,jdbcType=VARCHAR}, #{date,jdbcType=TIMESTAMP}, #{sum,jdbcType=NUMERIC}, #{state,jdbcType=VARCHAR})
+	</insert>
+	
+	<select id="findMaxOrderID" resultType="java.lang.Integer">
+		select orderID from orderList order by orderID desc limit 1
+	</select>
+	
+	<select id="findOrder" parameterType="java.lang.Integer" resultType="com.yg.model.Order">
+		select * from orderList where orderID=#{orderID,jdbcType=INTEGER}
+	</select>
+	
+	<update id="updateOrder" parameterType="com.yg.model.Order" >
+		update orderList set userID=#{userID,jdbcType=INTEGER}, addressID=#{addressID,jdbcType=INTEGER}, 
+		cards=#{cards,jdbcType=VARCHAR}, date=#{date,jdbcType=TIMESTAMP}, sum=#{sum,jdbcType=NUMERIC}, 
+		state=#{state,jdbcType=VARCHAR} where orderID=#{orderID,jdbcType=INTEGER}
+	</update>
+	
+	<select id="findAllByUserID" parameterType="java.lang.Integer" resultType="com.yg.model.Order">
+		select * from orderList where userID=#{userID,jdbcType=INTEGER}
+	</select>
+</mapper>

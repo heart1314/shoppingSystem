@@ -1,0 +1,24 @@
+package com.yg.service;
+
+import java.util.List;
+
+import org.springframework.web.multipart.MultipartFile;
+
+import com.alibaba.fastjson.JSONObject;
+import com.yg.model.Commodity;
+
+public interface CommodityService {
+	public List<Commodity> findAll();
+
+	public int findSum();
+	
+	public List<Commodity> paginationSearch(Integer m, Integer n);
+	
+	public JSONObject savePic(MultipartFile picFileMpf);
+	
+	public int addCommodity(Commodity commodity);
+	
+	public int deleteCommodity(Integer id);
+	
+	public int editCommodity(Commodity commodity);
+}

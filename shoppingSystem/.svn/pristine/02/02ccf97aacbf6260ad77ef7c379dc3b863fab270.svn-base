@@ -1,0 +1,133 @@
+package com.yg.controller;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+
+import com.alibaba.fastjson.JSONObject;
+import com.yg.model.Commodity;
+import com.yg.service.CommodityService;
+
+@Controller
+@RequestMapping("/commodity")
+public class CommodityController {
+
+	@Autowired
+	private CommodityService commodityService;
+
+	@RequestMapping("/findAll")
+	@ResponseBody
+	public List<Commodity> findAll() {
+		return commodityService.findAll();
+	}
+
+	@RequestMapping("/findSum")
+	@ResponseBody
+	public int findSum() {
+		return commodityService.findSum();
+	}
+
+	@RequestMapping("/paginationSearch")
+	@ResponseBody
+	public List<Commodity> paginationSearch(@RequestParam(value = "m") String index,
+			@RequestParam(value = "n") String pageSize) {
+		Integer m = Integer.parseInt(index);
+		Integer n = Integer.parseInt(pageSize);
+		return commodityService.paginationSearch(m, n);
+	}
+
+	@RequestMapping("/savePic")
+	@ResponseBody
+	public JSONObject savePic(@RequestParam("picture") MultipartFile picFileMpf) {
+		return commodityService.savePic(picFileMpf);
+	}
+	
+	@RequestMapping("/saveShow")
+	@ResponseBody
+	public JSONObject saveShow(@RequestParam("show") MultipartFile show) {
+		return commodityService.savePic(show);
+	}
+	
+	@RequestMapping("/addCommodity")
+	@ResponseBody
+	public boolean addCommodity(@RequestParam(value = "name") String name, @RequestParam(value = "norms") String norms,
+			@RequestParam(value = "price") String price, @RequestParam(value = "state") String state, 
+			@RequestParam(value = "type") String type, @RequestParam(value = "tip") String tip,
+			@RequestParam(value = "des") String des, @RequestParam(value = "brand") String brand, 
+			@RequestParam(value = "listingDate") String listingDate, @RequestParam(value = "note") String note,
+			@RequestParam(value = "picture") String picture, @RequestParam(value = "casePic") String casePic, 
+			@RequestParam(value = "sum") String sum, @RequestParam(value = "saleSum") String saleSum) throws ParseException{
+		double p = Double.parseDouble(price);
+		Integer s1 = Integer.parseInt(sum);
+		Integer s2 = Integer.parseInt(saleSum);
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+		Date date = sdf.parse(listingDate);
+		Commodity commodity = new Commodity();
+		commodity.setBrand(brand);
+		commodity.setDate(date);
+		commodity.setDes(des);
+		commodity.setName(name);
+		commodity.setNorms(norms);
+		commodity.setNote(note);
+		commodity.setPicture(picture);
+		commodity.setPrice(p);
+		commodity.setSaleSum(s2);
+		commodity.setCasePic(casePic);
+		commodity.setState(state);
+		commodity.setSum(s1);
+		commodity.setTip(tip);
+		commodity.setType(type);
+		System.out.println(commodity);
+		return commodityService.addCommodity(commodity) > 0;
+	}
+	
+	@RequestMapping("/deleteCommodity")
+	@ResponseBody
+	public boolean deleteCommodity(@RequestParam(value = "id") String id){
+		Integer c_id = Integer.parseInt(id);
+		return commodityService.deleteCommodity(c_id) > 0 ;
+	}
+	
+	@RequestMapping("/editCommodity")
+	@ResponseBody
+	public boolean editCommodity(@RequestParam(value = "name") String name, @RequestParam(value = "norms") String norms,
+			@RequestParam(value = "price") String price, @RequestParam(value = "state") String state, 
+			@RequestParam(value = "type") String type, @RequestParam(value = "tip") String tip,
+			@RequestParam(value = "des") String des, @RequestParam(value = "brand") String brand, 
+			@RequestParam(value = "listingDate") String listingDate, @RequestParam(value = "note") String note,
+			@RequestParam(value = "picture") String picture, @RequestParam(value = "casePic") String casePic, 
+			@RequestParam(value = "sum") String sum, @RequestParam(value = "saleSum") String saleSum,
+			@RequestParam(value = "id") String id) throws ParseException{
+		Integer c_id = Integer.parseInt(id);
+		double p = Double.parseDouble(price);
+		Integer s1 = Integer.parseInt(sum);
+		Integer s2 = Integer.parseInt(saleSum);
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+		Date date = sdf.parse(listingDate);
+		Commodity commodity = new Commodity();
+		commodity.setBrand(brand);
+		commodity.setDate(date);
+		commodity.setDes(des);
+		commodity.setName(name);
+		commodity.setNorms(norms);
+		commodity.setNote(note);
+		commodity.setPicture(picture);
+		commodity.setPrice(p);
+		commodity.setSaleSum(s2);
+		commodity.setCasePic(casePic);
+		commodity.setState(state);
+		commodity.setSum(s1);
+		commodity.setTip(tip);
+		commodity.setType(type);
+		commodity.setId(c_id);
+		return commodityService.editCommodity(commodity) > 0;
+	}
+}

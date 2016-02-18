@@ -1,0 +1,56 @@
+package shoppingSystem;
+
+import org.junit.Before;
+import org.junit.Test;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+import com.yg.service.AddressService;
+import com.yg.service.CommodityService;
+import com.yg.service.UserService;
+
+
+
+public class UserTest {
+	private UserService userService;
+	private AddressService addressService;
+	private CommodityService commodityService;
+
+	@Before
+	public void before() {
+		@SuppressWarnings("resource")
+		ApplicationContext context = new ClassPathXmlApplicationContext(
+				new String[] { "classpath:spring.xml", "classpath:spring-mybatis.xml" });
+		userService = (UserService) context.getBean("userServiceImpl");
+		addressService = (AddressService)context.getBean("addressServiceImpl");
+		commodityService = (CommodityService)context.getBean("commodityServiceImpl");
+	}
+	
+	@Test
+	public void findAll(){
+//		ApplicationContext ctx = new ClassPathXmlApplicationContext(
+//				"spring.xml", "spring-mybatis.xml");
+//		userService = (UserService) ctx.getBean("userServiceImpl");
+		System.out.println(userService.findAll());
+	}
+	
+	@Test
+	public void findAddress(){
+		System.out.println(addressService.findAddress(1, 2));
+	}
+	
+	@Test
+	public void findTolerantAddress(){
+		System.out.println(addressService.findTolerantAddress(1, "1"));
+	}
+	
+	@Test
+	public void sumAddress(){
+		System.out.println(addressService.sumAddress(1));
+	}
+	
+	@Test
+	public void paginationSearch(){
+		System.out.println(commodityService.paginationSearch(0, 5));
+	}
+}

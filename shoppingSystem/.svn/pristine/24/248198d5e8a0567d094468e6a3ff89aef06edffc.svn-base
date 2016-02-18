@@ -1,0 +1,97 @@
+package com.yg.controller;
+
+import java.util.Date;
+import java.util.List;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.yg.model.User;
+import com.yg.service.UserService;
+
+@Controller
+@RequestMapping("/user")
+public class UserController {
+	@Autowired
+	private UserService userService;
+	
+	protected final Logger logger = LoggerFactory.getLogger(getClass());
+	
+	@ResponseBody
+	@RequestMapping("/findAll")
+	public List<User> findAll(@RequestParam(value = "type") String type) {
+		logger.trace("根据用户类型查询用户列表");
+		if("0".equals(type)){
+			return userService.findAll();	
+		}else if("1".equals(type)){
+			String role = "manager";
+			return userService.findUserByRole(role);
+		}else{
+			String role = "typical-user";
+			return userService.findUserByRole(role);
+		}
+	}
+	
+	@ResponseBody
+	@RequestMapping("/findUserByRole")
+	public List<User> findUserByRole(){
+		String role = "manager";
+		return userService.findUserByRole(role);
+	}
+	
+	@ResponseBody
+	@RequestMapping("/findUserById")
+	public User findUserById(){
+		Integer id = 1;
+		return userService.findUserById(id);
+		
+	}
+	
+	@ResponseBody
+	@RequestMapping("/updateUser")
+	public int updateUser(@RequestParam(value = "id") String id,@RequestParam(value = "username") String username,
+			@RequestParam(value = "password") String password,
+			@RequestParam(value = "mobile") String mobile, @RequestParam(value = "mail") String mail,
+			@RequestParam(value = "sex") String sex, @RequestParam(value = "role") String role){
+		Date birthday = new Date();
+		User user = new User();
+		user.setId(Integer.parseInt(id));
+		user.setUsername(username);
+		user.setPassword(password);
+		user.setMobile(mobile);
+		user.setMail(mail);
+		user.setBirthday(birthday);
+		user.setSex(sex);
+		user.setRole(role);
+		return userService.updateUser(user);
+	}
+	
+	@ResponseBody
+	@RequestMapping("/insertUser")
+	public boolean insertUser(@RequestParam(value = "username") String username, @RequestParam(value = "password") String password,
+			@RequestParam(value = "mobile") String mobile, @RequestParam(value = "mail") String mail,
+			@RequestParam(value = "sex") String sex, @RequestParam(value = "role") String role){
+		Date birthday = new Date();
+		User user = new User();
+		user.setUsername(username);
+		user.setPassword(password);
+		user.setMobile(mobile);
+		user.setMail(mail);
+		user.setBirthday(birthday);
+		user.setSex(sex);
+		user.setRole(role);
+		return userService.insertUser(user) > 0;
+	}
+	
+	@ResponseBody
+	@RequestMapping("/deleteUser")
+	public boolean deleteUser(String delId){
+		Integer id = Integer.parseInt(delId);
+		return userService.deleteUser(id) > 0;
+	}
+}

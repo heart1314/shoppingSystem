@@ -1,0 +1,81 @@
+package shoppingSystem;
+
+import java.util.Date;
+
+import org.junit.Before;
+import org.junit.Test;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+import com.yg.model.Commodity;
+import com.yg.service.AddressService;
+import com.yg.service.CommodityService;
+import com.yg.service.UserService;
+
+
+
+public class UserTest {
+	private UserService userService;
+	private AddressService addressService;
+	private CommodityService commodityService;
+
+	@Before
+	public void before() {
+		@SuppressWarnings("resource")
+		ApplicationContext context = new ClassPathXmlApplicationContext(
+				new String[] { "classpath:spring.xml", "classpath:spring-mybatis.xml" });
+		userService = (UserService) context.getBean("userServiceImpl");
+		addressService = (AddressService)context.getBean("addressServiceImpl");
+		commodityService = (CommodityService)context.getBean("commodityServiceImpl");
+	}
+	
+	@Test
+	public void findAll(){
+//		ApplicationContext ctx = new ClassPathXmlApplicationContext(
+//				"spring.xml", "spring-mybatis.xml");
+//		userService = (UserService) ctx.getBean("userServiceImpl");
+		System.out.println(userService.findAll());
+	}
+	
+	@Test
+	public void findAddress(){
+		System.out.println(addressService.findAddress(1, 2));
+	}
+	
+	@Test
+	public void findTolerantAddress(){
+		System.out.println(addressService.findTolerantAddress(1, "1"));
+	}
+	
+	@Test
+	public void sumAddress(){
+		System.out.println(addressService.sumAddress(1));
+	}
+	
+	@Test
+	public void paginationSearch(){
+		System.out.println(commodityService.paginationSearch(0, 5));
+	}
+	
+	@Test
+	public void addCommodity(){
+		Date date = new Date();
+		Commodity c = new Commodity();
+		c.setBrand("华为");
+		c.setDate(date);
+		c.setDes("麒麟950处理器");
+		c.setName("华为mate8");
+		c.setNorms("标准版");
+		c.setPicture("ces5W9JjFpwe.jpg");
+		c.setPrice(3299);
+		c.setSaleSum(0);
+		c.setCasePic("ces5W9JjFpwe (1).jpg");
+		c.setState("有货");
+		c.setSum(1000);
+		c.setTip("麒麟950,6英寸大屏幕");
+		c.setType("mobile");
+		if(commodityService.addCommodity(c) > 0){
+			System.out.println("添加成功");
+		};
+	}
+}

@@ -1,0 +1,54 @@
+package com.yg.service.impl;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.yg.dao.UserDAO;
+import com.yg.model.User;
+import com.yg.service.UserService;
+
+@Service
+public class UserServiceImpl implements UserService {
+	@Autowired
+	private UserDAO userDAO;
+
+	public List<User> findAll() {
+		return userDAO.findAll();
+	}
+
+	public List<User> findUserByRole(String role) {
+		return userDAO.findUserByRole(role);
+	}
+
+	public User findUserById(Integer id) {
+		return userDAO.findUserById(id);
+	}
+	
+	public int updateUser(User user) {
+		return userDAO.updateUser(user);
+	}
+
+	public int insertUser(User user) {
+		return userDAO.insertUser(user);
+	}
+
+	public int deleteUser(Integer id) {
+		return userDAO.deleteUser(id);
+	}
+
+	public User findUserByUsername(String username) {
+		return userDAO.findUserByUsername(username);
+	}
+
+	public int registerUser(User user) {
+		return userDAO.registerUser(user);
+	}
+
+	public User loginUser(String username, String password) {
+		return userDAO.loginUser(username, password);
+	}
+
+
+}

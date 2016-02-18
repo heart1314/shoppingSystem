@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yg.dao.AddressDAO">
+	
+	<select id="findAllByUserID" resultType="com.yg.model.Address" parameterType="java.lang.Integer">
+		select * from address where userID=#{id,jdbcType=INTEGER}
+	</select>
+	
+	<select id="findAddress" resultType="com.yg.model.Address" parameterType="java.lang.Integer">
+		select * from address where userID=#{userID,jdbcType=INTEGER} and addressID=#{addressID,jdbcType=INTEGER} 
+	</select>
+	
+	<select id="findTolerantAddress" resultType="com.yg.model.Address">
+		select * from address where userID=#{userID,jdbcType=INTEGER} and tolerant=#{tolerant,jdbcType=VARCHAR}
+	</select>
+	
+	<update id="updateAddress" parameterType="com.yg.model.Address">
+		update address set name=#{name,jdbcType=VARCHAR},province=#{province,jdbcType=VARCHAR},
+		city=#{city,jdbcType=VARCHAR}, area=#{area,jdbcType=VARCHAR},address=#{address,jdbcType=VARCHAR}, 
+		mobile=#{mobile,jdbcType=VARCHAR}, zipCode=#{zipCode,jdbcType=VARCHAR}, tolerant=#{tolerant,jdbcType=VARCHAR} 
+		where userID=#{userID,jdbcType=INTEGER} and addressID=#{addressID,jdbcType=INTEGER}
+	</update>
+	
+	<delete id="deleteAddress" parameterType="java.lang.Integer">
+		delete from address where userID=#{userID,jdbcType=INTEGER} and addressID=#{addressID,jdbcType=INTEGER}
+	</delete>
+	
+	<insert id="insertAddress" parameterType="com.yg.model.Address">
+		insert into address(userID,addressID,name,province,city,area,address,mobile,zipCode,tolerant) 
+		values(#{userID,jdbcType=INTEGER}, #{addressID,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR},
+		#{province,jdbcType=VARCHAR}, #{city,jdbcType=VARCHAR}, #{area,jdbcType=VARCHAR},#{address,jdbcType=VARCHAR},
+		#{mobile,jdbcType=VARCHAR}, #{zipCode,jdbcType=VARCHAR}, #{tolerant,jdbcType=VARCHAR})
+	</insert>
+	
+	<select id="sumAddress" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+		select count(*) from address where userID=#{id,jdbcType=INTEGER}
+	</select>
+	
+	<select id="maxAddressID" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+		select addressID from address where userID=#{id,jdbcType=INTEGER} order by addressID desc limit 1
+	</select>
+</mapper>

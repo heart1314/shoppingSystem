@@ -1,0 +1,30 @@
+package shoppingSystem;
+
+import org.junit.Before;
+import org.junit.Test;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+import com.yg.service.UserService;
+
+
+
+public class UserTest {
+	private UserService userService;
+
+	@Before
+	public void before() {
+		@SuppressWarnings("resource")
+		ApplicationContext context = new ClassPathXmlApplicationContext(
+				new String[] { "classpath:spring.xml", "classpath:spring-mybatis.xml" });
+		userService = (UserService) context.getBean("userServiceImpl");
+	}
+	
+	@Test
+	public void findAll(){
+//		ApplicationContext ctx = new ClassPathXmlApplicationContext(
+//				"spring.xml", "spring-mybatis.xml");
+//		userService = (UserService) ctx.getBean("userServiceImpl");
+		System.out.println(userService.findAll());
+	}
+}

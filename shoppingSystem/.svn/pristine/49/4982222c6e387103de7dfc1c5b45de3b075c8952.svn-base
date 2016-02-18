@@ -1,0 +1,21 @@
+package com.yg.dao;
+
+import java.util.List;
+
+import org.apache.ibatis.annotations.Param;
+
+import com.yg.model.Commodity;
+
+public interface CommodityDAO {
+	public List<Commodity> findAll();
+	
+	public int findSum();
+	
+	public List<Commodity> paginationSearch(@Param(value="m")Integer m,@Param(value="n")Integer n);
+	
+	public int addCommodity(Commodity commodity);
+	
+	public int deleteCommodity(Integer id);
+	
+	public int editCommodity(Commodity commodity);
+}

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yg.dao.UserDAO">
+
+	<select id="findAll" resultType="com.yg.model.User">
+		select * from user
+	</select>
+	
+	<select id="findUserByRole" resultType="com.yg.model.User" parameterType="java.lang.String">
+		select * from user where role= #{role,jdbcType=VARCHAR}
+	</select>
+	
+	<select id="findUserById" resultType="com.yg.model.User" parameterType="java.lang.Integer">
+		select * from user where id=#{id,jdbcType=INTEGER}
+	</select>
+	
+	<update id="updateUser" parameterType="com.yg.model.User">
+		update user set username=#{username,jdbcType=VARCHAR}, password=#{password,jdbcType=VARCHAR},
+		mobile=#{mobile,jdbcType=VARCHAR},mail=#{mail,jdbcType=VARCHAR},birthday=#{birthday,jdbcType=DATE},
+		sex=#{sex,jdbcType=VARCHAR}, role=#{role,jdbcType=VARCHAR} where id=#{id,jdbcType=INTEGER}
+	</update>
+	
+	<insert id="insertUser" parameterType="com.yg.model.User">
+		insert into user(username, password, mobile, mail, birthday, sex, role) 
+		values(#{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{mobile,jdbcType=VARCHAR}, #{mail,jdbcType=VARCHAR},
+		#{birthday,jdbcType=DATE}, #{sex,jdbcType=VARCHAR}, #{role,jdbcType=VARCHAR})
+	</insert>
+	
+	<delete id="deleteUser" parameterType="java.lang.Integer">
+		delete from user where id=#{#id,jdbcType=INTEGER}
+	</delete>
+	
+	<select id="findUserByUsername" resultType="com.yg.model.User" parameterType="java.lang.String">
+		select * from user where username=#{username,jdbcType=VARCHAR}
+	</select>
+	
+	<insert id="registerUser" parameterType="com.yg.model.User">
+		insert into user(username, password, role) values(#{username,jdbcType=VARCHAR},#{password,jdbcType=VARCHAR}, #{role,jdbcType=VARCHAR})
+	</insert>
+	
+	<select id="loginUser" parameterType="java.lang.String" resultType="com.yg.model.User">
+		select * from user where username=#{username,jdbcType=VARCHAR} and password=#{password,jdbcType=VARCHAR}
+	</select>
+</mapper>

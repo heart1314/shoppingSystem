@@ -1,0 +1,16 @@
+package com.yg.service;
+
+import java.util.List;
+
+import com.yg.model.Address;
+
+public interface AddressService {
+	
+	public List<Address> findAllByUserID(Integer id);
+	
+	public Address findAddress(Integer userID, Integer addressID);
+	
+	public Address findTolerantAddress(Integer userID, String tolerant);
+	
+	public int updateAddress(Address add);
+}

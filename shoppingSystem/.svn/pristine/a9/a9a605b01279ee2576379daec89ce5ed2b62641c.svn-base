@@ -1,0 +1,42 @@
+package com.yg.controller;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.yg.model.Address;
+import com.yg.service.AddressService;
+
+@Controller
+@RequestMapping("/address")
+public class AddressController {
+	@Autowired
+	private AddressService addressService;
+	
+	@RequestMapping("/findAllByUserID")
+	@ResponseBody
+	public List<Address> findAllByUserID(@RequestParam(value = "id") String id){
+//		Integer id = 1;
+		Integer ID = Integer.parseInt(id);
+		return addressService.findAllByUserID(ID);
+	}
+	
+	@RequestMapping("/setAddress")
+	@ResponseBody
+	public Address setAddress(@RequestParam(value = "userID") String id1,
+			@RequestParam(value = "addressID") String id2){
+		Integer userID = Integer.parseInt(id1);
+		Address tolerantAdd = addressService.findTolerantAddress(userID, "1");//找到原来的默认地址
+		tolerantAdd.setTolerant("0");
+		addressService.updateAddress(tolerantAdd);//将原来的默认地址改为非默认
+		Integer addressID = Integer.parseInt(id2);
+		Address currentAdd = addressService.findAddress(userID, addressID);//找到当前地址
+		currentAdd.setTolerant("1");
+		addressService.updateAddress(currentAdd);//将当前地址改为默认地址
+		return currentAdd;
+	}
+}

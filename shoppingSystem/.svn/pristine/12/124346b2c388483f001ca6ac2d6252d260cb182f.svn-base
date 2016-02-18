@@ -1,0 +1,22 @@
+package com.yg.service.impl;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.yg.dao.UserDAO;
+import com.yg.model.User;
+import com.yg.service.UserService;
+
+@Service
+public class UserServiceImpl implements UserService {
+	@Autowired
+	private UserDAO userDAO;
+
+	public List<User> findAll() {
+		// TODO Auto-generated method stub
+		return userDAO.findAll();
+	}
+
+}

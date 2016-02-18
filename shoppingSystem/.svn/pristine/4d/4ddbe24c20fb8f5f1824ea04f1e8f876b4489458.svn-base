@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yg.dao.CommodityDAO">
+	
+	<select id="findAll" resultType="com.yg.model.Commodity">
+		select * from commodity
+	</select>
+	
+	<select id="findSum" resultType="java.lang.Integer">
+		select count(*) from commodity
+	</select>
+	
+	<select id="paginationSearch" resultType="com.yg.model.Commodity" parameterType="java.lang.Integer">
+		select * from commodity limit #{m,jdbcType=INTEGER}, #{n,jdbcType=INTEGER}
+	</select>
+	
+	<insert id="addCommodity" parameterType="com.yg.model.Commodity">
+		insert into commodity(name, norms, price, state, type, tip, des, brand, date, note, picture, casePic, sum, saleSum) 
+		values(#{name,jdbcType=VARCHAR}, #{norms,jdbcType=VARCHAR}, #{price, jdbcType=NUMERIC}, #{state, jdbcType=VARCHAR},
+		#{type,jdbcType=VARCHAR}, #{tip,jdbcType=VARCHAR}, #{des,jdbcType=VARCHAR}, #{brand,jdbcType=VARCHAR},
+		#{date,jdbcType=DATE}, #{note,jdbcType=VARCHAR}, #{picture,jdbcType=VARCHAR}, #{casePic,jdbcType=VARCHAR}, 
+		#{sum,jdbcType=INTEGER}, #{saleSum,jdbcType=INTEGER})
+	</insert>
+	
+	<delete id="deleteCommodity" parameterType="java.lang.Integer">
+		delete from commodity where id=#{#id,jdbcType=INTEGER}
+	</delete>
+	
+	<update id="editCommodity" parameterType="com.yg.model.Commodity">
+		update commodity set name=#{name,jdbcType=VARCHAR}, norms=#{norms,jdbcType=VARCHAR}, price=#{price, jdbcType=NUMERIC},
+		state=#{state, jdbcType=VARCHAR}, type=#{type,jdbcType=VARCHAR}, tip=#{tip,jdbcType=VARCHAR}, des=#{des,jdbcType=VARCHAR},
+		brand=#{brand,jdbcType=VARCHAR}, date=#{date,jdbcType=DATE}, note=#{note,jdbcType=VARCHAR}, picture=#{picture,jdbcType=VARCHAR},
+		casePic=#{casePic,jdbcType=VARCHAR}, sum=#{sum,jdbcType=INTEGER}, saleSum=#{saleSum,jdbcType=INTEGER} where id=#{id,jdbcType=INTEGER}
+	</update>
+	
+	<select id="searchBySaleSum" resultType="com.yg.model.Commodity" parameterType="java.lang.Integer">
+		select * from commodity order by saleSum desc limit #{m,jdbcType=INTEGER}, #{n,jdbcType=INTEGER} 
+	</select>
+	
+	<select id="searchByPrice" resultType="com.yg.model.Commodity" parameterType="java.lang.Integer">
+		select * from commodity order by price desc limit #{m,jdbcType=INTEGER}, #{n,jdbcType=INTEGER} 
+	</select>
+	
+	<select id="searchByPri" resultType="com.yg.model.Commodity" parameterType="java.lang.Integer">
+		select * from commodity order by price limit #{m,jdbcType=INTEGER}, #{n,jdbcType=INTEGER} 
+	</select>
+	
+	<select id="searchSumByBrand" resultType="java.lang.Integer">
+		select count(*) from commodity where brand=#{brand,jdbcType=VARCHAR}
+	</select>
+	
+	<select id="searchByBrand" resultType="com.yg.model.Commodity">
+		select * from commodity where brand=#{brand,jdbcType=VARCHAR} limit #{m,jdbcType=INTEGER}, #{n,jdbcType=INTEGER}
+	</select>
+	
+	<select id="searchSumBetPrice" resultType="java.lang.Integer">
+		select count(*) from commodity where price between #{p1} and #{p2}
+	</select>
+	
+	<select id="searchBetPrice" resultType="com.yg.model.Commodity">
+		select * from commodity where price between #{p1} and #{p2} limit #{m}, #{n}
+	</select>
+	
+	<select id="searchCommodity" resultType="com.yg.model.Commodity" parameterType="java.lang.Integer">
+		select * from commodity where id=#{id,jdbcType=INTEGER}
+	</select>
+</mapper>

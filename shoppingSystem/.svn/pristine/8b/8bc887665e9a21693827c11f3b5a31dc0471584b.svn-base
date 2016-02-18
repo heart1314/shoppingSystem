@@ -1,0 +1,9 @@
+package com.yg.dao;
+
+import java.util.List;
+
+import com.yg.model.User;
+
+public interface UserDAO {
+	public List<User> findAll();
+}
