@@ -1,0 +1,175 @@
+<div style="margin-bottom:20px">
+	<p style="color:#888;font-size:10px;margin-left:5px">当前位置：手机数码</p>
+	<form class="form-inline" role="form" ng-submit="searchMobile();">
+		<div class="col-lg-3  form-group">
+			<div class="input-group">
+				<span class="input-group-addon"> 查询类别 </span>
+				<select ng-model="types.type" class="form-control" ng-options="role.type as role.name for role in roles"></select>
+			</div>
+		</div>
+		<div class="form-group">
+			<button class="btn" type="submit">
+				<span class="glyphicon glyphicon-search" type="button"></span>查询
+			</button>
+		</div>
+		<div class="form-group">
+			<btn-cvs ng-if="rows"></btn-cvs>
+		</div>
+	</form>
+</div>
+
+<div ng-if="rows" class="main-content" style="overflow-x:scroll">
+	<table st-table="displayedRows" st-safe-src="rows" show-filter="true" class="table table-bordered table-striped">
+		<thead>
+			<tr>
+				<th st-sort="id">序列号</th>
+				<th st-sort="name">型号</th>
+				<th>规格</th>
+				<th st-sort="price">价格</th>
+				<th>简介</th>
+				<th st-sort="state">状态</th>
+				<th st-sort="date">上市日期</th>
+				<th>销售记录</th>
+				<th st-sort="brand">品牌</th>
+				<th>数量</th>
+				<th>销售量</th>
+				<th>操作</th>
+			</tr>
+			<tr>
+				<td colspan="3">
+					<input st-search="name" placeholder="搜索型号" class="input-sm form-control" type="search" />
+				</td>
+				<td colspan="2">
+					<input st-search="price" placeholder="搜索价格" class="input-sm form-control" type="search" />
+				</td>
+				<td colspan="3">
+					<input st-search="state" placeholder="搜索状态" class="input-sm form-control" type="search" />
+				</td>
+				<td colspan="3">
+					<input st-search="brand" placeholder="搜索品牌" class="input-sm form-control" type="search" />
+				</td>
+				<td><a class="btn btn-info" ng-click='addMobile();'>添加</a></td>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="row in displayedRows">
+				<td>{{$index+1}}</td>
+				<td>{{row.name}}</td>
+				<td>{{row.norms}}</td>
+				<td>{{row.price}}</td>
+				<td>{{row.tip}}</td>
+				<td>{{row.state}}</td>
+				<td>{{row.date | date:'yyyy-MM-dd'}}</td>
+				<td>{{row.note}}</td>
+				<td>{{row.brand}}</td>
+				<td>{{row.sum}}</td>
+				<td>{{row.saleSum}}</td>
+				<td>
+					<a class="btn btn-info" ng-click="editMobile(row);">编辑</a>
+					<button class="btn" ng-click="deleteMobile(row.id);">删除</button>
+				</td>
+			</tr>
+		</tbody>
+		<tfoot>
+			<tr>
+				<td colspan="12" class="text-center">
+					<div st-pagination="" st-items-by-page="10" st-displayed-pages="10"></div>
+				</td>
+			</tr>
+		</tfoot>
+	</table>
+</div>
+
+<script type="text/ng-template" id="addMobile.html">
+	<div class="ngdialog-message">
+		<h4>{{title}}</h4>
+		<form role="form" name="myForm" ng-submit="sub();">
+			<div class="form-group">
+				<span>型号：</span>
+				<input type="text" required ng-model="mobile.name" placeholder="{{mobile.name}}">
+			</div>
+			<div class="form-group">
+				<span>规格：</span>
+				<input type="text" required ng-model="mobile.norms" placeholder="{{mobile.norms}}">
+			</div>
+			<div class="form-group">
+				<span>价格：</span>
+				<input type="text" required ng-model="mobile.price" placeholder="{{mobile.price}}">
+			</div>
+			<div class="form-group">
+				<span>状态：</span>
+				<select required ng-model="mobile.state">
+					<option>有货</option>
+					<option>无货</option>
+				</select>
+			</div>
+			<div class="form-group">
+				<span>类型：</span>
+				<select required ng-model="mobile.type">
+					<option ng-checked>mobile</option>
+				</select>
+			</div>
+			<div class="form-group">
+				<span>简介：</span>
+				<input type="text" ng-model="mobile.tip" placeholder="{{mobile.tip}}">
+			</div>
+			<div class="form-group">
+				<span>描述：</span>
+				<input type="text" ng-model="mobile.des" placeholder="{{mobile.des}}">
+			</div>
+			<div class="form-group">
+				<span>品牌：</span>
+				<input type="text" required ng-model="mobile.brand" placeholder="{{mobile.brand}}">
+			</div>
+			<div class="form-group">
+				<span>上市日期：</span>
+				<input type="text" ng-model="mobile.listingDate" placeholder="{{mobile.listingDate}}">
+				<p class="help-block">（请按照格式"yyyy/MM/dd"填写）</p>
+			</div>
+			<div class="form-group">
+				<span>简图：</span>
+				<div ng-show="mobile.picture">
+					已选择：<img ng-src="../../images/mobile/{{mobile.picture}}">
+					<a class="btn" ng-click="removePic()">移除</a>
+				</div>
+				<div ng-show="!mobile.picture">
+					<input type="file" class="button" ngf-select ng-model="picture" name="file" 
+    				ngf-accept="'image/*'" ngf-max-size="2MB">
+    				<i ng-show="myForm.file.$error.maxSize">图片大小超过2M</i> 
+    				<a class="btn" ng-click="removePicture(this)">移除</a>
+    				<a class="btn" ng-click="uploadPic(picture)">上传</a>
+				</div>
+			</div>
+			<div class="form-group">
+				<span>真机样图：</span>
+				<div ng-show="mobile.casePic">
+					已选择：<img ng-src="../../images/mobile/{{mobile.casePic}}">
+					<a class="btn" ng-click="removeShow()">移除</a>
+				</div>
+				<div ng-show="!mobile.casePic">
+					<input type="file" class="button" ngf-select ng-model="show" name="file" 
+    				ngf-accept="'image/*'" ngf-max-size="2MB">
+    				<i ng-show="myForm.file.$error.maxSize">图片大小超过2M</i>
+    				<a class="btn" ng-click="removeShow(this)">移除</a>
+    				<a class="btn" ng-click="uploadShow(show)">上传</a>
+				</div>
+			</div>
+			<div class="form-group">
+				<span>数量：</span>
+				<input type="text" required ng-model="mobile.sum" placeholder="{{mobile.sum}}">
+			</div>
+			<div class="form-group" ng-show="mobile.note">
+				<span>记录：</span>
+				<input type="text" ng-model="mobile.note" placeholder="{{mobile.note}}">
+			</div>
+			<div class="form-group" ng-show="mobile.saleSum">
+				<span>已售：</span>
+				<input type="text" ng-model="mobile.saleSum" placeholder="{{mobile.saleSum}}">
+			</div>
+			<div class="form-group">
+				<input type="reset" class="btn" value="取消" ng-click="closeThisDialog()">&nbsp
+				<input type="submit" class="btn btn-info" value="确定">
+			</div>
+		</form>
+	</div>
+</script>

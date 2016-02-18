@@ -1,0 +1,147 @@
+.browsehappy {
+	margin: 0.2em 0;
+	background: #ccc;
+	color: #000;
+	padding: 0.2em 0;
+}
+body {
+	padding: 0;
+}
+/* Custom page header */
+.header {
+	/*border-bottom: 1px solid #e5e5e5;*/
+	margin-bottom: 0px;
+	padding-left: 0;
+	padding-right: 0;
+}
+.navbar.navbar-default {
+	margin-bottom: 0px;
+}
+.navbar-brand{
+	font-size: 14px;
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+.collapse.navbar-collapse{
+	margin:0 auto;
+}
+.collapse.navbar-collapse a:hover{
+	cursor: pointer;
+}
+.nav.navbar-nav{
+	float:right;
+}
+/* Custom page footer */
+.footer {
+	padding-top: 19px;
+	color: #777;
+	border-top: 1px solid #e5e5e5;
+	padding-left: 0;
+	padding-right: 0;
+}
+ /*Responsive: Portrait tablets and up 
+@media screen and (min-width: 768px) {
+	.container {
+		max-width: 730px;
+	}*/
+/*logo、搜索、购物车*/
+	.logo {
+		/*width: 1200px;*/
+		width:68%;
+		margin: 10px auto 5px auto;
+		height: 40px;
+		text-align: center;
+	}
+	.logo img {
+		float: left;
+	}
+	.search {
+		margin: 3px auto;
+		width: 300px;
+		height: 32px;
+	}
+	.btn {
+		color: #777;
+	}
+	#btn{
+		margin-top:2px;
+		float: right;
+	}
+	.btn:hover {
+		color: #000;
+	}
+	#shoppingCard{
+		color:white;
+		background:red;
+		border:1px solid red;
+		border-radius:0.8em;
+	}
+/*导航菜单*/
+	.navigation {
+		/*width: 1300px;*/
+		width:70%;
+		margin: 0 auto 40px auto; 	
+	}
+	.menu,
+	.u2 {
+		padding: 0;
+		margin: 0;
+	}
+	.u2{
+		z-index:5;
+		width: 100%;
+		position:absolute;
+	}
+	.l1 {
+		position:relative;
+		border: solid 1px #D4D4D4;
+		margin-right: -1px;
+		background: #5BC0DE;
+		/*width: 162.5px;*/
+		width:12.5%;
+		list-style-type: none;
+		float: left;
+	}
+	.l1 a{
+		color: #E3E3E3;
+		font-size: 16px;
+		text-decoration: none;
+	}
+	.l2 {
+		background: #5BC0DE;
+		font-size: 15px;
+		cursor: pointer;
+		margin-bottom: -1px;
+		margin-right: -1px;
+		border: solid 1px #e4e4e4;
+		list-style-type: none;
+		display: none;
+		opacity:0.7
+	}
+	.l1:hover {
+		background: #fff;
+	}
+	.l2 a{
+		color:#fff;
+		font-size: 14px;
+		text-decoration: none;
+	}
+/*底部版权区*/
+	.container,
+	.navigation {
+		text-align: center;
+	}
+	.footer a {
+		color: #777;
+		text-decoration: none;
+	}
+	.footer a:hover{
+		color:#000;
+		cursor:pointer;
+}
+/*内容*/
+.container-fluid{
+	/*width:1400px;*/
+	width:80%;
+	margin-bottom:20px;
+}
+

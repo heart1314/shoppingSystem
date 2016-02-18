@@ -1,0 +1,46 @@
+<div ng-init="load();">
+	<p>当前位置：个人信息</p>
+</div>
+<div class="baseInfo">
+	<form role="form" ng-submit="updateUserInfo();">
+		<div class="form-group">
+			<div class="form-control-static">个人信息设置：</div>
+		</div>
+		<div class="form-group">
+			<div class="input-group date form_date col-md-6" data-date="" data-date-format="yyyy/mm/dd" data-link-format="yyyy-mm-dd">
+				<span class="input-group-addon">生日：</span>
+				<input class="form-control" size="16" type="text" value="" readonly id="birthday">
+				<span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+				<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+			</div>
+		</div>
+		<div class="form-group">
+			<span>性别：</span>
+			<label>
+				<input type="radio" value="male" ng-model="currentUser.sex" ng-checked="{{currentUser.sex =='male'?true:false}}">男
+			</label>&nbsp&nbsp
+			<label>
+				<input type="radio" value="female" ng-model="currentUser.sex" ng-checked="{{currentUser.sex =='female'?true:false}}">女
+			</label>
+		</div>
+		<div class="form-group">
+			<span>手机：</span>
+			<input type="text" ng-model="currentUser.mobile" placeholder="{{currentUser.mobile}}">
+		</div>
+		<div class="form-group">
+			<span>邮箱：</span>
+			<input type="text" ng-model="currentUser.mail" placeholder="{{currentUser.mail}}">
+		</div>
+		<div class="form-group">
+			<input type="submit" class="btn" ng-click="update();" value="提交">
+		</div>
+	</form>
+</div>
+
+<script type="text/javascript">
+	$('.form_date').datetimepicker({
+		autoclose: 1, //选择完一个日期后立即关闭日期选择器
+		startView: 3, //打开之后显示“年”的视图
+		minView: 2, //到每一天为止
+	})
+</script>

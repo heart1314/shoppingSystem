@@ -1,0 +1,43 @@
+#orderTitle{
+	width:60%;
+	margin:5px auto 20px auto;
+	color:#ddd;
+}
+
+#orderList{
+	border:dashed 1px #ccc;
+	width:70%;
+	margin:20px auto;
+}
+
+#orderList p{
+	display:inline;
+	color:#777;
+	margin:0 30px
+}
+
+#orderList a{
+	text-decoration: none;
+}
+
+#orderInfo{
+	margin-top:30px;
+}
+
+#orderInfo p{
+	display:block;
+	color:#777;
+	margin:10px 30px
+}
+
+#orderInfo span{
+	margin-left: 30px;
+}
+
+#orderInfo ul{
+	padding: 0;
+}
+
+#orderInfo li{
+	list-style-type: none
+}

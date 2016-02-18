@@ -1,0 +1,64 @@
+.mobile, .mobileOrder{
+	background: #fafafa;
+	width:80%;
+	margin:0 auto 10px auto;
+	border:1px solid #ddd;
+}
+.mobileBrand, .mobilePrice{
+	margin:10px;
+	
+}
+.mobileBrand{
+	border-bottom:1px dashed #ccc;
+	height:50px;
+}
+.mobilePrice{
+	height:40px;
+}
+.brandHead, .priceHead{
+	margin-right: 30px;
+	float: left;
+	color:#777;
+}
+.brandContent{
+	width:90%;
+	float: left;
+}
+.brandContent li{
+	width:10%;
+}
+.brandContent li a , .mobileOrder a{
+	text-decoration: none;
+	color:#555;
+	cursor:pointer;
+}
+.priceContent{
+	float:left;
+}
+.priceContent text{
+	width:40px;
+}
+.mobileOrder li {
+	margin-top:8px;
+	margin-left: 10px;
+}
+
+.mobileList{
+	width:80%;
+	margin:0 auto 10px auto;
+}
+.mobileList li{
+	width:20%;
+}
+.mobileDetail{
+	width:100%;
+	height:270px;
+}
+.mobileDetail img{
+	width:100%;
+}
+.mobileDetail p{
+	color:#777;
+	fontsize:12px;
+	margin:1px;
+}

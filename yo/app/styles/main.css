@@ -1,0 +1,67 @@
+/*首页内容*/
+.information{
+	margin-right:10px;
+	border:solid 1px #eee;
+	width:22%;
+	height:300px;
+	float:left;
+	overflow-y: auto;
+}
+.information h4,.service h4,.brand h4{
+	color:#909090;
+	margin-left:15px;
+	font-family: "微软雅黑";
+	font-size: 18px;
+}
+.list-group{
+	width:100%;
+	margin-left:-1px;
+	margin-right:-1px;
+	color:#777;
+}
+#myCarousel{
+	width:50%;
+	float:left;
+}
+.service{
+	margin-left:10px;
+	float:left;
+	border:solid 1px #eee;
+	width:22%;
+	height:200px;
+}
+
+.service ul{
+	margin:0;
+	padding:0;
+}
+.service li{
+	text-align: center;
+	height:53px;
+	list-style-type: none;
+	float:left;
+	border-top:solid 1px #eee;
+	border-left:solid 1px #eee;
+	width:25%;
+}
+.service a{
+	color:#777;
+	text-decoration: none;
+}
+.service a:hover{
+	cursor:pointer;
+	color:#66AFE9;
+}
+.service div{
+	text-align: center;
+}
+
+.brand{
+	float:left;
+	border-left:solid #eee 1px;
+	border-right:solid #eee 1px;
+}
+.brand.title{
+	background: #eee; 
+	width:100%
+}

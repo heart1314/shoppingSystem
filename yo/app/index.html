@@ -1,0 +1,213 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<meta name="description" content="">
+		<meta name="viewport" content="width=device-width">
+
+		<link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
+		<link rel="stylesheet" href="bower_components/ng-dialog/css/ngDialog.css" />
+		<link rel="stylesheet" href="bower_components/ng-dialog/css/ngDialog-theme-default.css" />
+		<link rel="stylesheet" href="bower_components/ng-dialog/css/ngDialog-theme-plain.css" />
+		<link rel="stylesheet" href="styles/index.css">
+		<link rel="stylesheet" href="styles/main.css">
+		<link rel="stylesheet" href="styles/userInfo.css">
+		<link rel="stylesheet" href="styles/mobile.css">
+		<link rel="stylesheet" href="styles/bootstrap-datetimepicker.css">
+		<link rel="stylesheet" href="styles/shoppingCard.css">
+		<link rel="stylesheet" href="styles/order.css">
+	</head>
+
+	<body ng-app="yoApp" login-dialog ng-controller="navCtrl">
+		<!-- Add your site or application content here -->
+		<!--
+        	作者：HJJ
+        	时间：2015-12-15
+        	描述：顶部菜单
+        -->
+		<div class="header">
+			<nav class="navbar navbar-default" role="navigation">
+				<div class="collapse navbar-collapse" id="example-navbar-collapse" >
+					<a ng-if="checkManager();" class="navbar-brand" ui-sref="dataManager.mobile">表单查询</a>
+					<a ng-if="checkManager();" class="navbar-brand" ui-sref="userList">账号管理</a>
+					<ul class="nav navbar-nav">
+						<li ng-if="!checkLogin();"><a ng-click="openLoginPanel();">登陆</a></li>
+						<li ng-if="!checkLogin();"><a ng-click="register();">注册</a></li>
+						<li ng-if="checkLogin();"><a ng-click="openModifyPanel();">{{loginUser.username}}</a></li>
+						<li ng-if="checkLogin();"><a ng-click="logout();">切换账号</a></li>
+						<li ng-if="checkLogin();"><a ui-sref="order">我的订单</a></li>
+						<li ng-if="checkLogin();"><a ui-sref="userInfo.baseInfo">账户设置</a></li>
+						<li><a>客服服务</a></li>
+						<li><a>网址导航</a></li>
+					</ul>
+				</div>
+			</nav>
+		</div>
+
+		<div class="logo" ng-init="getCardSum();">
+			<img ng-src="../images/logo.png">
+			<input type="text" class="search">
+			<button class="btn"><span class="glyphicon glyphicon-hand-right"></span>&nbsp搜索</button>
+			<a class="btn btn-default" id="btn" ui-sref="shoppingCard" ng-if="checkLogin();">
+				<span class="glyphicon glyphicon-shopping-cart"></span>
+				&nbsp购物车
+				<i ng-show="showCard();" id="shoppingCard">{{shoppingCard}}</i>
+			</a>
+		</div>
+
+		<!--
+	作者：HJJ
+	时间：2015-12-15
+	描述：导航菜单-->
+		<!--<div class="container">-->
+		<div class="navigation">
+			<ul id="u1" class="menu">
+				<li class="l1"><a ui-sref="main">首页</a></li>
+				<li class="l1"><a>手机数码</a>
+					<ul class="u2">
+						<li class="l2"><a ui-sref="mobile">手机</a></li>
+						<li class="l2"><a>手机配件</a></li>
+						<li class="l2"><a>相机</a></li>
+						<li class="l2"><a>音响</a></li>
+						<li class="l2"><a>智能设备</a></li>
+					</ul>
+				</li>
+				<li class="l1"><a>电脑办公</a>
+					<ul class="u2">
+						<li class="l2"><a ui-sref="computer">电脑</a></li>
+						<li class="l2"><a>外设</a></li>
+						<li class="l2"><a>平板</a></li>
+						<li class="l2"><a>电脑配件</a></li>
+					</ul>
+				</li>
+				<li class="l1"><a>精品服饰</a>
+					<ul class="u2">
+						<li class="l2"><a>女上装</a></li>
+						<li class="l2"><a>女下装</a></li>
+						<li class="l2"><a>男上装</a></li>
+						<li class="l2"><a>男下装</a></li>
+						<li class="l2"><a>女鞋</a></li>
+						<li class="l2"><a>男鞋</a></li>
+					</ul>
+				</li>
+				<li class="l1"><a>家具用品</a>
+					<ul class="u2">
+						<li class="l2"><a>家具</a></li>
+						<li class="l2"><a>家纺</a></li>
+						<li class="l2"><a>家件材料</a></li>
+					</ul>
+				</li>
+				<li class="l1"><a>图书音像</a>
+					<ul class="u2">
+						<li class="l2"><a>图书</a></li>
+						<li class="l2"><a>音像</a></li>
+					</ul>
+				</li>
+				<li class="l1"><a>护肤美妆</a>
+					<ul class="u2">
+						<li class="l2"><a>护肤品</a></li>
+						<li class="l2"><a>彩妆系列</a></li>
+					</ul>
+				</li>
+				<li class="l1"><a>零食生鲜</a>
+					<ul class="u2">
+						<li class="l2"><a>零食</a></li>
+						<li class="l2"><a>生鲜</a></li>
+					</ul>
+				</li>
+			</ul>
+		</div>
+		</div>
+
+		<div class="container-fluid">
+			<div ui-view></div>
+		</div>
+		<!--
+	作者：HJJ
+	时间：2015-12-15
+	描述：底部版权
+-->
+		<div class="footer">
+			<div class="container">
+				<a>关于我们</a>&nbsp&nbsp|&nbsp&nbsp
+				<a>联系我们</a>&nbsp&nbsp|&nbsp&nbsp
+				<a>信息反馈</a>&nbsp&nbsp|&nbsp&nbsp
+				<a>商家入驻</a>
+				<p>版权所有 Copyright(C)2015-2016 网络购物平台
+					<p>
+			</div>
+		</div>
+
+		<!-- build:js(.) scripts/vendor.js -->
+		<!-- bower:js -->
+		<script src="bower_components/jquery/dist/jquery.js"></script>
+		<script src="bower_components/angular/angular.js"></script>
+		<script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+		<script src="bower_components/angular-animate/angular-animate.js"></script>
+		<script src="bower_components/angular-cookies/angular-cookies.js"></script>
+		<script src="bower_components/angular-resource/angular-resource.js"></script>
+		<script src="bower_components/angular-route/angular-route.js"></script>
+		<script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
+		<script src="bower_components/angular-touch/angular-touch.js"></script>
+		<script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+		<script src="bower_components/angular-smart-table/dist/smart-table.js"></script>
+		<script src="bower_components/ng-dialog/js/ngDialog.js"></script>
+		<script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+		<script src="bower_components/ng-file-upload/ng-file-upload.js"></script>
+		<script src="bower_components/ng-file-upload-shim/ng-file-upload-shim.js"></script>
+		<!-- endbower -->
+		<!-- endbuild -->
+
+		<!-- build:js({.tmp,app}) scripts/scripts.js -->
+		<script src="scripts/app.js"></script>
+		<script src="scripts/controllers/main.js"></script>
+		<script src="scripts/controllers/mobile.js"></script>
+		<script src="scripts/controllers/mobileInfo.js"></script>
+		<script src="scripts/controllers/userInfo.js"></script>
+		<script src="scripts/controllers/userList.js"></script>
+		<script src="scripts/controllers/navCtrl.js"></script>
+		<script src="scripts/controllers/addressManager.js"></script>
+		<script src="scripts/controllers/dataManager.js"></script>
+		<script src="scripts/controllers/shoppingCard.js"></script>
+		<script src="scripts/controllers/order.js"></script>
+		<script src="scripts/controllers/pay.js"></script>
+		<script src="scripts/services/commonservice.js"></script>
+		<script src="scripts/directives/btncvs.js"></script>
+		<script src="scripts/directives/loginDialog.js"></script>
+		<script src="scripts/datetimepicker/bootstrap-datetimepicker.js"></script>
+		<script src="scripts/datetimepicker/bootstrap-datetimepicker.fr.js"></script>
+		<script src="scripts/addresspicker/PCASClass.js"></script>
+		<!-- endbuild -->
+
+		<script type="text/javascript">
+			$(function() {
+				$('#u1 li').hover(function() {
+					$(this).find("li").css('display', 'block');
+					$(this).children("a").css('color', '#999');
+				}, function() {
+					$(this).find("li").css('display', 'none');
+					$(this).children("a").css('color', '#E3E3E3');
+				});
+				$('.l2').hover(function() {
+					$(this).find("a").css('color', '#E4B9B9');
+				}, function() {
+					$(this).find("a").css('color', '#fff');
+				});
+				
+			})
+
+			// angular.module('ui.bootstrap.carousel',['ui.bootstrap.carousel'])
+			// 	.controllers('carousel',['$scope','timeout','transition',function($scope, $timeout, $transition){
+
+			// 	}]).directive('slide', [function(){
+			// 		return{
+
+			// 		}
+			// 	}])
+		</script>
+
+	</body>
+
+</html>

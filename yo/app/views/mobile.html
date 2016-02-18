@@ -1,0 +1,68 @@
+<div class="mobile">
+	<div class="mobileBrand">
+		<div class ="brandHead">
+			<p>品牌：</p>
+		</div>
+		<div class="brandContent">
+			<ul class="list-inline" ng-model="brands">
+				<li ng-repeat="brand in brands" >
+					<a ng-click="searchByBrand(brand.name , brand.picture);">{{brand.name}}</a>
+					<a ng-if="showPic" ng-click="unShowPic();" class="{{brand.picture}}"></a>
+				</li>
+			</ul>
+		</div>
+	</div>
+	<div class="mobilePrice">
+		<div class="priceHead">
+			<p>价格：</p>
+		</div>
+		<div class="priceContent">
+			<input type="text" placeholder="请输入最低价格" ng-model="startPrice"><span style="padding:5px">-<span>
+			<input type="text" placeholder="请输入最高价格" ng-model="endPrice">
+			<span style="color:red">{{tip}}</span>
+			<span class="btn" ng-click="searchBetweenPrice();">确定</span>
+		</div>
+	</div>
+</div>
+
+<div class="mobileOrder">
+	<ul class="list-inline" id="list">
+		<li><a style="color:red" ng-click="searchAll();" id="zonghe">综合</a></li>
+		<li><a ng-click="searchBySaleSum();">销量</a></li>
+		<li><a ng-click="searchByPrice();">价格由高到低</a></li>
+		<li><a ng-click="searchByPrice2();">价格由低到高</a></li>
+	</ul>
+</div>
+
+<div class="mobileList" >
+	<div ng-init="searchAll()">
+		<ul ng-model="mobiles" class="list-inline">
+			<li ng-repeat="mobile in mobiles" >
+				<div class="mobileDetail">
+					<img ng-src="../images/mobile/{{mobile.picture}}">
+					<p>{{mobile.name}}({{mobile.norms}})</p>
+					<p><a ui-sref="mobileInfo" style="color:red" ng-click="storeInfo(mobile);">{{mobile.tip}}</a></p>
+					<p>售价：<span style="color:red">{{mobile.price}}</span>&nbsp&nbsp{{mobile.state}}</p>
+					<p style="color:#999;font-size:10px">销售量：{{mobile.saleSum}}</p>
+				</div>
+			</li>
+		</ul>
+	</div>
+
+	<div class="col=md-9">
+	<uib-pagination total-items="page.items" ng-model="page.index" 
+	items-per-page="page.size" class="pagination-sm pull-right" boundary-links="true" 
+	direction-links="true" rotate="false" first-text="首页" previous-text="上一页" 
+	next-text="下一页" last-text="尾页" ng-change="pageChanged(page.index)"></uib-pagination>
+	</div>
+</div>
+
+<script type="text/javascript">
+	$('#list li').click(
+		function(){
+			$(this).find("a").css("color","#f00");
+			$(this).siblings("li").find("a").css("color","#555");
+		}
+	)
+
+</script>

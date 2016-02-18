@@ -1,0 +1,70 @@
+
+<div class="information">
+	<h4>优惠快讯</h4>
+	<ul class="list-group">
+		<li class="list-group-item">免费域名注册</li>
+		<li class="list-group-item">免费 Window 空间托管</li>
+		<li class="list-group-item">图像的数量</li>
+		<li class="list-group-item">24*7 支持</li>
+		<li class="list-group-item">每年更新成本</li>
+		<li class="list-group-item">免费域名注册</li>
+		<li class="list-group-item">免费 Window 空间托管</li>
+		<li class="list-group-item">图像的数量</li>
+		<li class="list-group-item">24*7 支持</li>
+		<li class="list-group-item">每年更新成本</li>
+	</ul>
+</div>
+
+ <div id="myCarousel" class="carousel slide">
+	<!-- 轮播（Carousel）指标 -->
+	<ol class="carousel-indicators">
+		<li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+		<li data-target="#myCarousel" data-slide-to="1"></li>
+		<li data-target="#myCarousel" data-slide-to="2"></li>
+		<li data-target="#myCarousel" data-slide-to="3"></li>
+	</ol>
+	<!-- 轮播（Carousel）项目 -->
+	<div class="carousel-inner">
+		<div class="item active">
+			<img src="../images/main/11.jpg">
+		</div>
+		<div class="item">
+			<img src="../images/main/12.jpg">
+		</div>
+		<div class="item">
+			<img src="../images/main/13.jpg">
+		</div>
+		<div class="item">
+			<img src="../images/main/14.jpg">
+		</div>
+	</div>
+	<!-- 轮播（Carousel）导航 -->
+	<a class="carousel-control left" href="#myCarousel" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span></a>
+	<a class="carousel-control right" href="#myCarousel" data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a>
+</div> 
+
+<div class="service">
+	<h4>生活服务</h4>
+	<ul ng-model="services">
+		<li ng-repeat="s in services"><a><span class="{{s.picture}}"></span><p>{{s.name}}</p></a></li>
+	</ul>
+	
+	<iframe allowtransparency="true" frameborder="0" width="100%" height="96" scrolling="no" 
+		src="http://tianqi.2345.com/plugin/widget/index.htm?s=2&z=1&t=0&v=0&d=1&bd=0&k=&f=&q=1&e=1&a=1&c=54511&w=195&h=96&align=center"></iframe>
+	<div>
+		<a>{{clock}}</a>
+	</div>
+</div>
+
+
+<div class="brand">
+	<div class="brand title">
+		<h4>知名品牌</h4>
+	</div>
+	<div class="brand content">
+		<ul ng-model="brands" class="list-inline">
+			<li ng-repeat="b in brands"><a><img ng-src="../images/main/{{b.name}}"></a></li>
+		</ul>
+	</div>
+</div>
+

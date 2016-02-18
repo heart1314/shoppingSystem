@@ -1,0 +1,84 @@
+<div ng-init="dataLoad();" style="width:63%;margin:20px auto;color:#777">
+	<div style="border:1px solid #ddd;width:60%" >
+		<p style="padding: 5px 10px">{{address.name}}</p>
+		<p style="padding: 5px 10px">{{address.mobile}}</p>
+		<p style="padding: 5px 10px">{{address.province}}{{address.city}}{{address.area}}{{address.address}}</p>
+		<p style="padding: 5px 10px">{{address.zipCode}}</p>
+	</div>
+	<div style="margin:10px 0 0 0">
+		<button class="btn" ng-click="chooseAdd();">选择收货地址</button>
+	</div>
+</div>
+
+<!-- 从购物车页面跳转过来 -->
+<div style="margin:20px auto" ng-if="commoditys">
+	<ul ng-model="commoditys">
+		<li ng-repeat="card in commoditys" style="list-style-type: none">
+			<div id="cards">
+				<div>{{card.name}}({{card.norms}})</div>
+				<div>{{card.tip}}</div>
+				<div>售价：{{card.price}}</div>
+				<div>数量：{{card.amount}}</div>
+				<div>总价：{{card.sum}}</div>
+			</div>
+		</li>
+	</ul>
+</div>
+
+<!-- 从商品界面点击“立即购买”跳转过来 -->
+<div ng-if="commodity" style="margin:20px auto">
+	<ul>
+		<li style="list-style-type: none">
+			<div id="cards">
+				<div>{{commodity.name}}({{commodity.norms}})</div>
+				<div>{{commodity.tip}}</div>
+				<div>售价：{{commodity.price}}</div>
+				<div>数量：{{commodity.amount}}</div>
+				<div>总价：{{commodity.price * commodity.amount}}</div>
+			</div>
+		</li>
+	</ul>
+</div>
+
+
+<div style="margin:20px auto;width:60%">
+	<p style="padding: 5px 10px">共计<span style="color:red">&nbsp{{number}}&nbsp</span>件商品，共<span style="color:red">&nbsp{{amount}}&nbsp</span>元</p>
+	<button class="btn">取消</button>&nbsp
+	<button class="btn btn-info" ng-click="payOrder();">付款</button>
+</div>
+
+<script type="text/ng-template" id="chooseAdd.html">
+	<div class="ngdialog-message" ng-init="searchAdd();">
+		<h4>选择收货地址</h4>
+		<form role="form" ng-submit="replaceAdd();">
+			<div class="form-group" >
+				<ul ng-model="adds" style="padding:0" id="u1">
+					<li ng-repeat="add in adds" style="list-style-type: none">
+						<div style="border:dashed 1px #ccc;margin:10px 0" id="{{add.addressID}}" ng-click="choose(add.addressID);">
+							<p style="padding: 5px 10px">{{add.name}}</p>
+							<p style="padding: 5px 10px">{{add.mobile}}</p>
+							<p style="padding: 5px 10px">{{add.province}}{{address.city}}{{address.area}}{{address.address}}</p>
+							<p style="padding: 5px 10px">{{add.zipCode}}</p>
+						</div>
+					</li>
+				</ul>
+			</div>
+			<div class="ngdialog-buttons" style="text-align:center">
+				<button type="submit" class="ngdialog-button ngdialog-button-primary" style="float:left;margin-left:100px;">确认</button>&nbsp&nbsp
+				<button type="button" class="ngdialog-button ngdialog-button-secondary" style="float:left;margin-left:50px;" ng-click="closeThisDialog()">取消</button>
+			</div>
+		</form>
+	</div>
+</script>
+
+<script type="text/ng-template" id="payOrder.html">
+	<div class="ngdialog-message">
+		<div style="margin:20px auto">
+			<p>模拟的支付界面</p>
+		</div>
+		<div class="ngdialog-buttons" style="text-align:center">
+				<button type="submit" class="ngdialog-button ngdialog-button-primary" style="float:left;margin-left:100px;" ng-click="refer();">付款</button>&nbsp&nbsp
+				<button type="button" class="ngdialog-button ngdialog-button-secondary" style="float:left;margin-left:50px;" ng-click="close();">取消</button>
+			</div>
+	</div>
+</script>

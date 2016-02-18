@@ -1,0 +1,28 @@
+<div ng-init="getInfo();" style="width:70%; height:600px;margin:30px auto 0 auto">
+	<div style="float:left">
+		<img ng-src="../images/mobile/{{mobileInfo.casePic}}">
+		<br></br>
+		<div style="text-align:center;color:#888">真机样图</div>
+	</div>
+	<div style="float:left;width:60%">
+		<p style="color:#666">{{mobileInfo.name}}({{mobileInfo.norms}})</p>
+		<p style="color:red"> 售价：{{mobileInfo.price}}</p>
+		<ul class="list-group">
+			<!-- <li class="list-group-item">参数：</li> -->
+   			<li class="list-group-item"><span>处理器：</span>{{mobileDes.cpu}}</li>
+   			<li class="list-group-item"><span>屏幕：</span>{{mobileDes.screen}}</li>
+   			<li class="list-group-item"><span>相机：</span>{{mobileDes.camera}}</li>
+   			<li class="list-group-item"><span>运存：</span>{{mobileDes.ram}}</li>
+   			<li class="list-group-item"><span>电池：</span>{{mobileDes.element}}</li>
+   			<li class="list-group-item"><span>其他描述：</span>{{mobileDes.other}}</li>
+		</ul>
+		<input type="button" class="btn btn-danger" value="立即购买" style="color:#fff" ng-click="addPay(mobileInfo);">&nbsp
+		<input type="button" class="btn btn-warning" value="加入购物车" style="color:#fff" ng-click="addShoppingCard(mobileInfo);">
+	</div>
+
+	<div style="float:left; width:100%">
+		<h4>评价(需新加一张表，暂缺)：</h4>
+		
+	</div>
+</div>
+

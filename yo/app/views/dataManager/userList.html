@@ -1,0 +1,127 @@
+<script type="text/ng-template" id="addUser.html">
+	<div class="ngdialog-message">
+		<h4>{{title}}</h4>
+		<form role="form" ng-submit="add(row);">
+			<div class="form-group">
+				<span>用户名：</span>
+				<input type="text" ng-model="row.username" placeholder="{{row.username}}" required>
+			</div>
+			<div class="form-group">
+				<span>密&nbsp码：</span>
+				<input type="password" ng-model="row.password" placeholder="{{row.password}}" required>
+			</div>
+			<div class="form-group">
+				<span>性&nbsp别：</span>
+				<label>
+					<input type="radio" name="optionsRadios" value="male" ng-model="row.sex" ng-checked="{{row.sex =='male'?true:false}}">男
+				</label>&nbsp
+				<label>
+					<input type="radio" name="optionsRadios" value="female" ng-model="row.sex" ng-checked="{{row.sex =='female'?true:false}}">女
+				</label>
+			</div>
+            <div class="form-group">
+				<span>生&nbsp日：</span>
+				<input type="text" ng-model="row.birthday" placeholder="{{row.birthday}}">
+			</div>
+			<div class="form-group">
+				<span>手&nbsp机：</span>
+				<input type="text" ng-model="row.mobile" placeholder="{{row.mobile}}">
+			</div>
+			<div class="form-group">
+				<span>邮&nbsp箱：</span>
+				<input type="text" ng-model="row.mail" placeholder="{{row.mail}}">
+			</div>
+			<div class="form-group">
+				<span>权&nbsp限：</span>
+				<select ng-model="row.role" required>
+					<option ng-checked="{{row.role =='manager'?true:false}}">manager</option>
+					<option ng-checked="{{row.role =='typical-user'?true:false}}">typical-user</option>
+				</select>
+			</div>  
+			<div class="form-group">
+				<div class="form-control-static">注：用户名、密码、权限为必填项</div>
+				<div class="form-control-static">生日请按照格式'yyyy/MM/dd'填写，如:2015/01/01</div>
+			</div>
+			<div class="form-group">
+				<p style="color:red">{{tip}}</p>
+				<input type="reset" class="btn" value="取消" ng-click="closeThisDialog()">
+				<input type="submit" class="btn btn-info" value="提交">
+			</div>
+		</form>
+	</div>
+</script>
+
+<div style="margin-bottom:20px; margin-top:10px">
+	<form class="form-inline" role="form" ng-submit="searchUser();">
+		<div class="col-lg-3  form-group">
+			<div class="input-group">
+				<span class="input-group-addon"> 查询范围 </span>
+				<select ng-model="types.type" class="form-control" ng-options="role.type as role.name for role in roles"></select>
+			</div>
+		</div>
+		<div class="form-group">
+			<button class="btn" type="submit">
+				<span class="glyphicon glyphicon-search" type="button"></span>查询
+			</button>
+		</div>
+		<div class="form-group">
+			<btn-cvs ng-if="rows"></btn-cvs>
+		</div>
+	</form>
+</div>
+<div ng-if="rows" class="main-content" style="overflow-x:scroll">
+	<table st-table="displayedRows" st-safe-src="rows" show-filter="true" class="table table-bordered table-striped">
+		<thead>
+			<tr>
+				<th st-sort="id">序列号</th>
+				<th st-sort="username">用户名</th>
+				<th st-sort="password">密码</th>
+				<th st-sort="mobile">手机号</th>
+				<th st-sort="mail">邮箱</th>
+				<th st-sort="birthday">生日</th>
+				<th st-sort="set">性别</th>
+				<th st-sort="role">用户类型</th>
+				<th>操作</th>
+			</tr>
+			<tr>
+				<td colspan="2">
+					<input st-search="username" placeholder="搜索用户名" class="input-sm form-control" type="search" />
+				</td>
+				<td colspan="2">
+					<input st-search="mobile" placeholder="搜索手机号" class="input-sm form-control" type="search" />
+				</td>
+				<td colspan="2">
+					<input st-search="mail" placeholder="搜索邮箱" class="input-sm form-control" type="search" />
+				</td>
+				<td colspan="2">
+					<input st-search="role" placeholder="搜索用户类型" class="input-sm form-control" type="search" />
+				</td>
+				<td><a class="btn btn-info" ng-click="addUser();">添加用户</a></td>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="row in displayedRows">
+				<td>{{$index+1}}</td>
+				<td>{{row.username}}</td>
+				<td>{{row.password}}</td>
+				<td>{{row.mobile}}</td>
+				<td>{{row.mail}}</td>
+				<td>{{row.birthday | date:'yyyy-MM-dd'}}</td>
+				<td>{{row.sex}}</td>
+				<td>{{row.role}}</td>
+				<td>
+					<a class="btn btn-info" ng-click="editUser(row)">编辑</a>
+					<button class="btn" ng-click="deleteUser(row.id);">删除</button>
+				</td>
+			</tr>
+		</tbody>
+		<tfoot>
+			<tr>
+				<td colspan="9" class="text-center">
+					<div st-pagination="" st-items-by-page="10" st-displayed-pages="10"></div>
+				</td>
+			</tr>
+		</tfoot>
+	</table>
+</div>
+

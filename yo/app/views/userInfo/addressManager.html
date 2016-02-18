@@ -1,0 +1,27 @@
+<div ng-init="searchAddress();">
+	<p>当前位置：地址管理</p>
+</div>
+<div style="margin-bottom:10px">
+	<input type="button" class="btn btn-info" value="新增收货地址" ng-click="addAddress();" style="color:#fff">
+	<span>您已创建{{sum}}个收货地址，最多可创建10个</span>
+</div>
+
+<div style="width:80%">
+	<ul ng-model="address">
+		<li ng-repeat="add in address">
+			<div class="addressList">
+				<p ng-if="add.tolerant == '1' " style="color: #5BC0DE;">默认地址</p>
+				<p>收货人：{{add.name}}</p>
+				<p>所在地区：{{add.province}}{{add.city}}{{add.area}}</p>
+				<p>地址：{{add.address}}</p>
+				<p>手机：{{add.mobile}}</p>
+				<p>邮编：{{add.zipCode}}</p>
+				<a class="btn" ng-if="add.tolerant == '0' " ng-click="setAddress(add);"><span class="glyphicon glyphicon-cog" ></span>设为默认地址</a>
+				<a class="btn" ng-click="editAddress(add);"><span class="glyphicon glyphicon-edit"></span>编辑</a>
+				<a class="btn" ng-click="deleteAddress(add);"><span class="glyphicon glyphicon-remove"></span>删除</a>
+			</div>
+		</li>
+	</ul>
+</div>
+
+

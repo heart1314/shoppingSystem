@@ -1,0 +1,34 @@
+<div id="orderTitle">
+	<p style="color:#999">当前位置：我的订单</p>
+</div>
+
+<div ng-init="searchOrder();">
+<ul ng-model="orders">
+		<li ng-repeat="order in orders" style="list-style-type: none">
+			<div id="orderList" >
+				<p>订单编号：{{order.orderID}}</p>
+				<p>下单时间：{{order.date}}</p>
+				<p>总金额：{{order.sum}}</p>
+				<p ng-if="order.state == 0">未支付</p>
+				<p ng-if="order.state == 0"><a>前往支付</a></p>
+				<p ng-if="order.state == 1">已支付</p>
+				<p ng-if="order.state == 1"><a>评价订单</a></p>
+				<p ng-if="order.state == 2">已完成</p>
+				<p ng-if="order.state == 2"><a>追加订单</a></p>
+				<p><a ng-click="orderInfo(order);">查看详情</a></p>
+				<div id="orderInfo" ng-if="order.orderID == showID">
+					<p>收货人：{{nowAdd.name}}<span>{{nowAdd.mobile}}</span><span>{{nowAdd.zipCode}}</span></p>
+					<p>收货地址：{{nowAdd.province}}{{nowAdd.city}}{{nowAdd.area}}{{nowAdd.address}}</p>
+					<ul ng-model="nowInfo">
+						<li ng-repeat="info in  nowInfo">
+							<div>
+								<p>{{info.name}}({{info.norms}})<span>{{info.tip}}</span><span>{{info.price}}</span></p>
+							</div>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+		</li>
+	</ul>
+</div>
